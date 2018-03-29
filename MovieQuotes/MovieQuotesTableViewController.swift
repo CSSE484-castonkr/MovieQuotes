@@ -11,6 +11,7 @@ import UIKit
 class MovieQuotesTableViewController: UITableViewController {
     
     let movieQuoteCellIndentifier = "MovieQuoteCell"
+    let noMovieQuotesCellIdentifier = "NoMovieQuotesCell"
     var movieQuotes = [MovieQuote]()
     
     override func viewDidLoad() {
@@ -26,8 +27,8 @@ class MovieQuotesTableViewController: UITableViewController {
                                                             target: self,
                                                             action: #selector(showAddDialog))
         
-        movieQuotes.append(MovieQuote(quote: "I'll be back", movie: "The Terminator"))
-        movieQuotes.append(MovieQuote(quote: "You go Glen Coco!", movie: "Mean Girls"))
+        //        movieQuotes.append(MovieQuote(quote: "I'll be back", movie: "The Terminator"))
+        //        movieQuotes.append(MovieQuote(quote: "You go Glen Coco!", movie: "Mean Girls"))
     }
     
     @objc func showAddDialog() {
@@ -56,10 +57,13 @@ class MovieQuotesTableViewController: UITableViewController {
                                                 let movieQuote = MovieQuote(quote: quoteTextField.text!,
                                                                             movie: movieTextField.text!)
                                                 self.movieQuotes.insert(movieQuote,at: 0)
-                                                //                                                self.tableView.reloadData()
-                                                self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)],
-                                                                        with: UITableViewRowAnimation.top)
                                                 
+                                                if self.movieQuotes.count == 1{
+                                                    self.tableView.reloadData()
+                                                } else{ // animations
+                                                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)],
+                                                                              with: UITableViewRowAnimation.top)
+                                                }
         }
         
         alertController.addAction(cancelAction)
@@ -80,18 +84,22 @@ class MovieQuotesTableViewController: UITableViewController {
     //        return 1
     //    }
     
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movieQuotes.count
+        return max(movieQuotes.count, 1)
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: movieQuoteCellIndentifier, for: indexPath)
-        
-        // Configure the cell...
-        cell.textLabel?.text = movieQuotes[indexPath.row].quote
-        cell.detailTextLabel?.text = movieQuotes[indexPath.row].movie
-        
+        var cell: UITableViewCell
+        if movieQuotes.count == 0 {
+            cell = tableView.dequeueReusableCell(withIdentifier: noMovieQuotesCellIdentifier, for: indexPath)
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: movieQuoteCellIndentifier, for: indexPath)
+            cell.textLabel?.text = movieQuotes[indexPath.row].quote
+            cell.detailTextLabel?.text = movieQuotes[indexPath.row].movie
+        }
         return cell
     }
     
