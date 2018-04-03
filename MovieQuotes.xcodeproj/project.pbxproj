@@ -14,6 +14,7 @@
 		8DED831D206AA2DD00D3E594 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DED831B206AA2DD00D3E594 /* LaunchScreen.storyboard */; };
 		8DED8327206D367600D3E594 /* MovieQuotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED8326206D367600D3E594 /* MovieQuotesTableViewController.swift */; };
 		8DED8329206D395800D3E594 /* MovieQuote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED8328206D395800D3E594 /* MovieQuote.swift */; };
+		8DED833B2073D10200D3E594 /* MovieQuoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED833A2073D10200D3E594 /* MovieQuoteDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		8DED831E206AA2DD00D3E594 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DED8326206D367600D3E594 /* MovieQuotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuotesTableViewController.swift; sourceTree = "<group>"; };
 		8DED8328206D395800D3E594 /* MovieQuote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuote.swift; sourceTree = "<group>"; };
+		8DED833A2073D10200D3E594 /* MovieQuoteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuoteDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				8DED830F206AA2DD00D3E594 /* MovieQuotes.xcdatamodeld */,
 				8DED8326206D367600D3E594 /* MovieQuotesTableViewController.swift */,
 				8DED8328206D395800D3E594 /* MovieQuote.swift */,
+				8DED833A2073D10200D3E594 /* MovieQuoteDetailViewController.swift */,
 			);
 			path = MovieQuotes;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DED830E206AA2DD00D3E594 /* AppDelegate.swift in Sources */,
+				8DED833B2073D10200D3E594 /* MovieQuoteDetailViewController.swift in Sources */,
 				8DED8329206D395800D3E594 /* MovieQuote.swift in Sources */,
 				8DED8327206D367600D3E594 /* MovieQuotesTableViewController.swift in Sources */,
 				8DED8311206AA2DD00D3E594 /* MovieQuotes.xcdatamodeld in Sources */,

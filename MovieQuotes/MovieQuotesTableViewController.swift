@@ -12,6 +12,7 @@ class MovieQuotesTableViewController: UITableViewController {
     
     let movieQuoteCellIndentifier = "MovieQuoteCell"
     let noMovieQuotesCellIdentifier = "NoMovieQuotesCell"
+    let showDetailSegueIdentifier = "ShowDetailSegue"
     var movieQuotes = [MovieQuote]()
     
     override func viewDidLoad() {
@@ -28,6 +29,11 @@ class MovieQuotesTableViewController: UITableViewController {
         
         movieQuotes.append(MovieQuote(quote: "I'll be back", movie: "The Terminator"))
         movieQuotes.append(MovieQuote(quote: "You go Glen Coco!", movie: "Mean Girls"))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     @objc func showAddDialog() {
@@ -136,14 +142,29 @@ class MovieQuotesTableViewController: UITableViewController {
  
     
     
-    /*
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
-     }
-     */
+    
+        if segue.identifier == showDetailSegueIdentifier {
+            // Goal: Pass the selected movie quote to the detail view controller.
+            // Option 1
+            if let indexPath = tableView.indexPathForSelectedRow {
+                (segue.destination as! MovieQuoteDetailViewController).movieQuote = movieQuotes[indexPath.row]
+            }
+            
+            // Option 2
+//            if let detailVC = segue.destination as? MovieQuoteDetailViewController {
+//                detailVC.movieQuote = movieQuotes[indexPathrow]
+//            }
+        }
+    
+    
+    }
+    
     
 }
