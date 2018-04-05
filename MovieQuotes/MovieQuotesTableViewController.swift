@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class MovieQuotesTableViewController: UITableViewController {
+    
+    var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     let movieQuoteCellIndentifier = "MovieQuoteCell"
     let noMovieQuotesCellIdentifier = "NoMovieQuotesCell"
@@ -24,15 +27,13 @@ class MovieQuotesTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                            target: self,
-                                                            action: #selector(showAddDialog))
-        
-        movieQuotes.append(MovieQuote(quote: "I'll be back", movie: "The Terminator"))
-        movieQuotes.append(MovieQuote(quote: "You go Glen Coco!", movie: "Mean Girls"))
+                                                                 target: self,
+                                                                 action: #selector(showAddDialog))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.updateMovieQuoteArray()
         tableView.reloadData()
     }
     
@@ -59,21 +60,47 @@ class MovieQuotesTableViewController: UITableViewController {
                                                 let movieTextField = alertController.textFields![1]
                                                 print("quoteTextField = \(quoteTextField.text!)")
                                                 print("movieTextField = \(movieTextField.text!)")
-                                                let movieQuote = MovieQuote(quote: quoteTextField.text!,
-                                                                            movie: movieTextField.text!)
-                                                self.movieQuotes.insert(movieQuote,at: 0)
+                                                //                                                let movieQuote = MovieQuote(quote: quoteTextField.text!,
+                                                //                                                                            movie: movieTextField.text!)
+                                                //                                                self.movieQuotes.insert(movieQuote,at: 0)
                                                 
-                                                if self.movieQuotes.count == 1{
-                                                    self.tableView.reloadData()
-                                                } else{ // animations
-                                                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)],
-                                                                              with: UITableViewRowAnimation.top)
-                                                }
+                                                // TODO: Come back here once we have access to the context
+                                                let newMovieQuote = MovieQuote(context: self.context)
+                                                newMovieQuote.quote = quoteTextField.text!
+                                                newMovieQuote.movie = movieTextField.text!
+                                                newMovieQuote.created = Date()
+                                                self.saveContext()
+                                                self.updateMovieQuoteArray()
+                                                self.tableView.reloadData()
+                                                
+//                                                if self.movieQuotes.count == 1{
+//                                                    self.tableView.reloadData()
+//                                                } else{ // animations
+//                                                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)],
+//                                                                              with: UITableViewRowAnimation.top)
+//                                                }
         }
         
         alertController.addAction(cancelAction)
         alertController.addAction(createQuoteAction)
         present(alertController, animated: true, completion: nil)
+    }
+    
+    func saveContext() {
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+    }
+    
+    func updateMovieQuoteArray() {
+        // Make a fetch request
+        // Execute the request in a try/catch block
+        let request: NSFetchRequest<MovieQuote> = MovieQuote.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "created", ascending: false)]
+        
+        do {
+            movieQuotes = try context.fetch(request)
+            } catch {
+            fatalError("Unresolved Core Data error \(error)")
+        }
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -117,39 +144,44 @@ class MovieQuotesTableViewController: UITableViewController {
     
     
     
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return movieQuotes.count > 0
-     }
+    }
     
-
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView,
-                             commit editingStyle: UITableViewCellEditingStyle,
-                             forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-        // Delete the row from the data source
-        movieQuotes.remove(at: indexPath.row)
-        if movieQuotes.count == 0 {
-            tableView.reloadData()
-            self.setEditing(false, animated: true)
-        } else {
-        tableView.deleteRows(at: [indexPath],
-                             with: .fade)
+                            commit editingStyle: UITableViewCellEditingStyle,
+                            forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            context.delete(movieQuotes[indexPath.row])
+            self.saveContext()
+            updateMovieQuoteArray()
+            
+            
+            // Delete the row from the data source
+//            movieQuotes.remove(at: indexPath.row)
+            if movieQuotes.count == 0 {
+                tableView.reloadData()
+                self.setEditing(false, animated: true)
+            } else {
+                tableView.deleteRows(at: [indexPath],
+                                     with: .fade)
+            }
         }
     }
-}
- 
     
     
     
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
     
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        
         if segue.identifier == showDetailSegueIdentifier {
             // Goal: Pass the selected movie quote to the detail view controller.
             // Option 1
@@ -158,12 +190,12 @@ class MovieQuotesTableViewController: UITableViewController {
             }
             
             // Option 2
-//            if let detailVC = segue.destination as? MovieQuoteDetailViewController {
-//                detailVC.movieQuote = movieQuotes[indexPathrow]
-//            }
+            //            if let detailVC = segue.destination as? MovieQuoteDetailViewController {
+            //                detailVC.movieQuote = movieQuotes[indexPathrow]
+            //            }
         }
-    
-    
+        
+        
     }
     
     

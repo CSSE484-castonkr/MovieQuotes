@@ -49,6 +49,7 @@ class MovieQuoteDetailViewController: UIViewController {
                                                 //  print("movieTextField = \(movieTextField.text!)")
                                                 self.movieQuote?.quote = quoteTextField.text!
                                                 self.movieQuote?.movie = movieTextField.text!
+                                                self.saveContext()
                                                 self.updateView()
                                                 
         }
@@ -58,6 +59,9 @@ class MovieQuoteDetailViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    func saveContext() {
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+    }
     
     
     override func viewWillAppear(_ animated: Bool) {
