@@ -27,8 +27,8 @@ class MovieQuotesTableViewController: UITableViewController {
                                                             target: self,
                                                             action: #selector(showAddDialog))
         
-        movieQuotes.append(MovieQuote(quote: "I'll be back", movie: "The Terminator"))
-        movieQuotes.append(MovieQuote(quote: "You go Glen Coco!", movie: "Mean Girls"))
+//        movieQuotes.append(MovieQuote(quote: "I'll be back", movie: "The Terminator"))
+//        movieQuotes.append(MovieQuote(quote: "You go Glen Coco!", movie: "Mean Girls"))
     }
     
     override func viewWillAppear(_ animated: Bool) {
