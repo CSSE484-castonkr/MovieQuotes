@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>337879139045-9t2l5pkj3ti5p9qe4eqtip9ej86gaqi7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.337879139045-9t2l5pkj3ti5p9qe4eqtip9ej86gaqi7</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB4L-CfN-8WTaOVYhG_8lNxk4K4zqeK6Ek</string>
+	<key>GCM_SENDER_ID</key>
+	<string>337879139045</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>edu.rosehulman.castonkr.MovieQuotes</string>
+	<key>PROJECT_ID</key>
+	<string>caston-movie-quotes</string>
+	<key>STORAGE_BUCKET</key>
+	<string>caston-movie-quotes.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:337879139045:ios:c4841007ca761770</string>
+	<key>DATABASE_URL</key>
+	<string>https://caston-movie-quotes.firebaseio.com</string>
+</dict>
+</plist>
