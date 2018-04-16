@@ -60,11 +60,7 @@ class MovieQuotesTableViewController: UITableViewController {
                                                 let movieTextField = alertController.textFields![1]
                                                 print("quoteTextField = \(quoteTextField.text!)")
                                                 print("movieTextField = \(movieTextField.text!)")
-                                                //                                                let movieQuote = MovieQuote(quote: quoteTextField.text!,
-                                                //                                                                            movie: movieTextField.text!)
-                                                //                                                self.movieQuotes.insert(movieQuote,at: 0)
                                                 
-                                                // TODO: Come back here once we have access to the context
                                                 let newMovieQuote = MovieQuote(context: self.context)
                                                 newMovieQuote.quote = quoteTextField.text!
                                                 newMovieQuote.movie = movieTextField.text!
@@ -72,13 +68,7 @@ class MovieQuotesTableViewController: UITableViewController {
                                                 self.saveContext()
                                                 self.updateMovieQuoteArray()
                                                 self.tableView.reloadData()
-                                                
-//                                                if self.movieQuotes.count == 1{
-//                                                    self.tableView.reloadData()
-//                                                } else{ // animations
-//                                                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)],
-//                                                                              with: UITableViewRowAnimation.top)
-//                                                }
+                                               
         }
         
         alertController.addAction(cancelAction)
