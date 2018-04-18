@@ -187,15 +187,17 @@ class MovieQuotesTableViewController: UITableViewController {
                             commit editingStyle: UITableViewCellEditingStyle,
                             forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            movieQuotes.remove(at: indexPath.row)
-            if movieQuotes.count == 0 {
-                tableView.reloadData()
-                self.setEditing(false, animated: true)
-            } else {
-                tableView.deleteRows(at: [indexPath],
-                                     with: .fade)
-            }
+//            // Delete the row from the data source
+//            movieQuotes.remove(at: indexPath.row)
+//            if movieQuotes.count == 0 {
+//                tableView.reloadData()
+//                self.setEditing(false, animated: true)
+//            } else {
+//                tableView.deleteRows(at: [indexPath],
+//                                     with: .fade)
+//            }
+            let movieQuoteToDelete = movieQuotes[indexPath.row]
+            quotesRef.document(movieQuoteToDelete.id!).delete()
         }
     }
     
@@ -213,7 +215,8 @@ class MovieQuotesTableViewController: UITableViewController {
             // Goal: Pass the selected movie quote to the detail view controller.
             // Option 1
             if let indexPath = tableView.indexPathForSelectedRow {
-                (segue.destination as! MovieQuoteDetailViewController).movieQuote = movieQuotes[indexPath.row]
+                (segue.destination as! MovieQuoteDetailViewController).movieQuote =
+                    quotesRef.document(movieQuotes[indexPath.row].id!)
             }
             
             // Option 2
